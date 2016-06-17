@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>
+        <f:viewAction action="#{cadastroAgenciaBean.prepararCadastro}" />
+    </f:metadata>
+
+    <ui:define name="titulo">Cadastro de Agências</ui:define>
+
+    <ui:define name="corpo">
+
+        <!--<h1>Consulta de Container</h1>-->
+
+        <h:form id="frm">
+            <p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+            <!--TODOS OS CODIGOS AQUI!-->
+
+            <p:panelGrid columns="2" id="grid" styleClass="grid ">
+
+                <p:outputLabel value="Nome Agência" for="agencia_titulo" />
+                <p:inputText id="agencia_titulo" required="true" maxlength="100" size="100"
+                             value="#{cadastroAgenciaBean.agencia.nome}">
+                </p:inputText>
+
+                <p:outputLabel value="Prefixo" for="agencia_prefixo" />
+                <p:inputText id="agencia_prefixo" required="true" maxlength="4"
+                             value="#{cadastroAgenciaBean.agencia.prefixo}">
+                    <p:keyFilter mask="num" />
+                </p:inputText>
+
+                <p:outputLabel value="Dependência" for="agencia_dependencia" />
+                <p:inputText id="agencia_dependencia" required="true" maxlength="4"
+                             value="#{cadastroAgenciaBean.agencia.dependencia}">
+                    <p:keyFilter mask="num" />
+                </p:inputText>
+                
+                <h:outputLabel />
+                <p:commandButton value="Salvar" action="#{cadastroAgenciaBean.salvar}"
+                                 icon="ui-icon-disk" update="@form" />
+
+            </p:panelGrid>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

@@ -31,7 +31,7 @@ public class Registros implements Serializable {
         return manager.find(Registro.class, id);
     }
 
-    public List<Registro> todas() {
+    public List<Registro> todos() {
         TypedQuery<Registro> query = manager.createQuery("from Registro", Registro.class);
 
         return query.getResultList();

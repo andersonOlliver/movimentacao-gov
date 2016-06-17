@@ -25,13 +25,16 @@ public class CadastroEstagio implements Serializable {
 
     @Transactional
     public void salvar(Estagio estagio) throws NegocioException {
+        Estagio verifica = null;
+        verifica = estagios.porValor(estagio.getValor());
+
         if (estagio == null) {
-            throw new NegocioException("Estagio Inválido!");
+            throw new NegocioException("Estágio Inválido!");
+        } else if (verifica != null) {
+            throw new NegocioException("Estágio Já Cadastrado!");
         }
-        
+
         this.estagios.adicionar(estagio);
     }
-    
-    
-    
+
 }

@@ -31,7 +31,7 @@ public class Interacoes implements Serializable {
         return manager.find(Interacao.class, id);
     }
 
-    public List<Interacao> todas() {
+    public List<Interacao> todos() {
         TypedQuery<Interacao> query = manager.createQuery("from Interacao", Interacao.class);
 
         return query.getResultList();

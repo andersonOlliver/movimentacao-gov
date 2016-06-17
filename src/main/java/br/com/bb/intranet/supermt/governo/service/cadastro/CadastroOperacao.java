@@ -26,7 +26,7 @@ public class CadastroOperacao implements Serializable {
     @Transactional
     public void salvar(Operacao operacao) throws NegocioException {
         if (operacao == null) {
-            throw new NegocioException("Agencia Inválida!");
+            throw new NegocioException("Operação Inválida!");
         }
         
         this.operacoes.adicionar(operacao);

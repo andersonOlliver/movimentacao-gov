@@ -25,10 +25,15 @@ public class CadastroProduto implements Serializable {
 
     @Transactional
     public void salvar(Produto produto) throws NegocioException {
+        Produto verifica = null;
+        verifica = produtos.porNome(produto.getNome());
+
         if (produto == null) {
             throw new NegocioException("Produto Inválido!");
+        } else if (verifica != null) {
+            throw new NegocioException("Produto Já Cadastrado!");
         }
-        
+
         this.produtos.adicionar(produto);
     }
 }

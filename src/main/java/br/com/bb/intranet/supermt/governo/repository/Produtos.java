@@ -5,12 +5,17 @@
  */
 package br.com.bb.intranet.supermt.governo.repository;
 
+import br.com.bb.intranet.supermt.governo.model.Estagio;
 import br.com.bb.intranet.supermt.governo.model.Produto;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -31,7 +36,14 @@ public class Produtos implements Serializable {
         return manager.find(Produto.class, id);
     }
 
-    public List<Produto> todas() {
+    public Produto porNome(String nome){
+        Criteria criteria = criarCriteria();
+
+        criteria.add(Restrictions.ilike("nome", nome, MatchMode.ANYWHERE));
+
+        return (Produto) criteria.uniqueResult();
+    }
+    public List<Produto> todos() {
         TypedQuery<Produto> query = manager.createQuery("from Produto", Produto.class);
 
         return query.getResultList();
@@ -49,5 +61,15 @@ public class Produtos implements Serializable {
 
     public void remover(Produto produto) {
         this.manager.remove(produto);
+    }
+    
+    /*
+	 * CONFIGURAÇÃO DE SESSÃO
+     */
+    private Criteria criarCriteria() {
+        Session session = manager.unwrap(Session.class);
+        Criteria criteria = session.createCriteria(Produto.class);
+
+        return criteria;
     }
 }

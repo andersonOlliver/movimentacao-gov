@@ -31,7 +31,7 @@ public class Funcionarios implements Serializable {
         return manager.find(Funcionario.class, id);
     }
 
-    public List<Funcionario> todas() {
+    public List<Funcionario> todos() {
         TypedQuery<Funcionario> query = manager.createQuery("from Funcionario", Funcionario.class);
 
         return query.getResultList();

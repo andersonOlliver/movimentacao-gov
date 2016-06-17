@@ -25,8 +25,13 @@ public class CadastroAgencia implements Serializable {
 
     @Transactional
     public void salvar(Agencia agencia) throws NegocioException {
+        Agencia verifica = null;
+        verifica = agencias.porPrefixo(agencia.getPrefixo());
+        
         if (agencia == null) {
             throw new NegocioException("Agencia Inválida!");
+        } else if(verifica != null){
+            throw new NegocioException("Agencia Já Cadastrada!");
         }
         
         this.agencias.adicionar(agencia);

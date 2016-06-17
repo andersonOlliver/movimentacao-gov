@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>
+        <f:viewAction action="#{cadastroOperacaoBean.prepararCadastro}" />
+    </f:metadata>
+
+    <ui:define name="titulo">Cadastro de Operação</ui:define>
+
+    <ui:define name="corpo">
+
+        <h1>Cadastro de Operação</h1>
+
+        <h:form id="frm">
+            <p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+            <!--TODOS OS CODIGOS AQUI!-->
+
+            <h:panelGrid columns="4" cellpadding="5">
+                
+            </h:panelGrid>
+            
+            <p:panelGrid columns="2" id="grid" styleClass="grid ">
+
+                <!--<p:outputLabel value="MCI" for="operacao_mci" />-->
+<!--                <p:autoComplete id="operacao_mci" 
+                                completeMethod="#{cadastroOperacaoBean.pesquisarMCI}"
+                                value="#{cadastroOperacaoBean.cliente.mci}">
+                </p:autoComplete>-->
+
+                <p:outputLabel value="Nome" for="produto_valor"/>
+                <p:inputText id="produto_valor" size="12" 
+                             value="#{cadastroOperacaoBean.operacao.valorRequisitado}">
+                    <f:convertNumber locale="pt_BR" maxFractionDigits="2" minFractionDigits="2" />
+                </p:inputText>
+
+
+
+                <h:outputLabel />
+                <p:commandButton value="Salvar" action="#{cadastroOperacaoBean.salvar}"
+                                 icon="ui-icon-disk" update="@form" />
+
+            </p:panelGrid>
+
+
+        </h:form>
+    </ui:define>
+</ui:composition>

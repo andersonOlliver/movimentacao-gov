@@ -22,7 +22,7 @@ public class Estagio implements Serializable {
 
     @NotBlank
     @Size(max = 80)
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false, length = 80, unique = true)
     private String valor;
 
     public Long getId() {

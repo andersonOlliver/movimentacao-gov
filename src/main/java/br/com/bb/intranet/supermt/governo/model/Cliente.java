@@ -30,7 +30,7 @@ public class Cliente implements Serializable {
 
     @NotBlank
     @Size(max = 5)
-    @Column(nullable = false, length = 5, unique = true)
+    @Column(nullable = false, length = 5)
     private String carteira;
 
     @NotBlank

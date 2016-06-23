@@ -11,19 +11,19 @@ import javax.persistence.Persistence;
 @ApplicationScoped
 public class EntityManagerProducer {
 
-	private EntityManagerFactory factory;
-	
-	public EntityManagerProducer() {
-		this.factory = Persistence.createEntityManagerFactory("movimentacaoPU");
-	}
-	
-	@Produces
-	@RequestScoped
-	public EntityManager createEntityManager(){
-		return factory.createEntityManager();
-	}
-	
-	public void closeEntityManager(@Disposes EntityManager manager){
-		manager.close();
-	}
+    private EntityManagerFactory factory;
+
+    public EntityManagerProducer() {
+        this.factory = Persistence.createEntityManagerFactory("movimentacaoPU");
+    }
+
+    @Produces
+    @RequestScoped
+    public EntityManager createEntityManager() {
+        return factory.createEntityManager();
+    }
+
+    public void closeEntityManager(@Disposes EntityManager manager) {
+        manager.close();
+    }
 }

@@ -27,9 +27,21 @@ public class CadastroOperacao implements Serializable {
     public void salvar(Operacao operacao) throws NegocioException {
         if (operacao == null) {
             throw new NegocioException("Operação Inválida!");
+        }else if(operacao.getCliente() == null){
+            throw new NegocioException("Cliente inválido!");
         }
         
         this.operacoes.adicionar(operacao);
     }
     
+    @Transactional
+    public Operacao atualizar(Operacao operacao) throws NegocioException {
+        if (operacao == null) {
+            throw new NegocioException("Operação Inválida!");
+        }else if(operacao.getCliente() == null){
+            throw new NegocioException("Cliente inválido!");
+        }
+        
+        return this.operacoes.guardar(operacao);
+    }
 }

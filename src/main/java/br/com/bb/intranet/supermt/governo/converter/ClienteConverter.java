@@ -18,7 +18,7 @@ import javax.inject.Inject;
  *
  * @author Olliver
  */
-@FacesConverter(forClass = Cliente.class)
+@FacesConverter("clienteConverter")
 public class ClienteConverter implements Converter {
 
     @Inject

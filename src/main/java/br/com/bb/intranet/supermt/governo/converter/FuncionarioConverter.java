@@ -18,7 +18,7 @@ import javax.inject.Inject;
  *
  * @author Olliver
  */
-@FacesConverter(forClass = Funcionario.class)
+@FacesConverter("funcionarioConverter")
 public class FuncionarioConverter implements Converter {
 
     @Inject

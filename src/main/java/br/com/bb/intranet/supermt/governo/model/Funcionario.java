@@ -45,10 +45,6 @@ public class Funcionario implements Serializable {
     @ManyToOne
     @JoinColumn(name = "agencia_id")
     private Agencia agencia;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TipoUsuario tipo;
     
     public Long getId() {
         return id;
@@ -125,6 +121,11 @@ public class Funcionario implements Serializable {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" + "id=" + id + ", chave=" + chave + ", apelido=" + apelido + '}';
     }
 
     

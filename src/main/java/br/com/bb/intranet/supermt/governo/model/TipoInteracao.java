@@ -2,8 +2,10 @@ package br.com.bb.intranet.supermt.governo.model;
 
 public enum TipoInteracao {
 
-    OPCAO1("opção 1"),
-    OPCAO2("opção 2");
+    INTERACAO("Interação"),
+    REUNIAO_VISITA("Reunião/Visita"),
+    EVENTO("Evento"),
+    CONTATO_VIRTUAL("Contato Virtual");
 
     private String valor;
 

@@ -11,6 +11,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -26,7 +29,7 @@ public class Funcionarios implements Serializable {
     public Funcionarios(EntityManager manager) {
         this.manager = manager;
     }
-    
+
     public Funcionario porId(Long id) {
         return manager.find(Funcionario.class, id);
     }
@@ -37,17 +40,44 @@ public class Funcionarios implements Serializable {
         return query.getResultList();
     }
 
+    public Funcionario porChave(String chave) {
+        Criteria criteria = criarCriteria();
+
+        criteria.add(Restrictions.like("chave", chave));
+
+        return (Funcionario) criteria.uniqueResult();
+    }
+
+    public List<String> chavesQueContem(String chave) {
+        TypedQuery<String> query = manager.createQuery(
+                "select distinct chave from Funcionario"
+                + "where upper(chave) like upper(:chave)",
+                String.class);
+        query.setParameter("chave", "%" + chave + "%");
+        return query.getResultList();
+    }
+
     public void adicionar(Funcionario funcionario) {
         this.manager.persist(funcionario);
 
     }
 
-    public void guardar(Funcionario funcionario) {
-        this.manager.merge(funcionario);
+    public Funcionario guardar(Funcionario funcionario) {
+        return this.manager.merge(funcionario);
 
     }
 
     public void remover(Funcionario Funcionario) {
         this.manager.remove(Funcionario);
+    }
+
+    /*
+	 * CONFIGURAÇÃO DE SESSÃO
+     */
+    private Criteria criarCriteria() {
+        Session session = manager.unwrap(Session.class);
+        Criteria criteria = session.createCriteria(Funcionario.class);
+
+        return criteria;
     }
 }

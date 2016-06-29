@@ -25,11 +25,28 @@ public class CadastroFuncionario implements Serializable {
 
     @Transactional
     public void salvar(Funcionario funcionario) throws NegocioException {
+        Funcionario validacao = null;
+        validacao = funcionarios.porChave(funcionario.getChave());
+        
+        if (funcionario == null) {
+            throw new NegocioException("Funcionario Inválido!");
+        }else if(validacao != null){
+            throw new NegocioException("Funcionario já cadastrado!");
+        }
+        
+        this.funcionarios.adicionar(funcionario);
+    }
+    
+    @Transactional
+    public Funcionario guardar(Funcionario funcionario) throws NegocioException {
+        Funcionario validacao = null;
+        validacao = funcionarios.porChave(funcionario.getChave());
+        
         if (funcionario == null) {
             throw new NegocioException("Funcionario Inválido!");
         }
         
-        this.funcionarios.adicionar(funcionario);
+        return this.funcionarios.guardar(funcionario);
     }
     
 }

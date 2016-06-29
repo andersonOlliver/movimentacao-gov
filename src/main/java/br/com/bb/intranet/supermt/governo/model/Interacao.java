@@ -60,6 +60,10 @@ public class Interacao implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Oportunidade> oportunidades;
+    
+    @ManyToOne
+    @JoinColumn(name="operacao_id")
+    private Operacao operacao;
 
     public Long getId() {
         return id;
@@ -123,6 +127,14 @@ public class Interacao implements Serializable {
 
     public void setOportunidades(List<Oportunidade> oportunidades) {
         this.oportunidades = oportunidades;
+    }
+
+    public Operacao getOperacao() {
+        return operacao;
+    }
+
+    public void setOperacao(Operacao operacao) {
+        this.operacao = operacao;
     }
 
     @Override

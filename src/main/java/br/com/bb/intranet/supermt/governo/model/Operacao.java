@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -31,14 +33,15 @@ public class Operacao implements Serializable {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Funcionario> funcionariosAcesso;
-
     @DecimalPositivo
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal valorRequisitado;
+    
+    @ManyToMany
+    @JoinTable(name = "operacao_funcionario_acesso", joinColumns = @JoinColumn(name = "operacao_id"), inverseJoinColumns = @JoinColumn(name = "funcionario_acesso_id"))
+    private List<Funcionario> funcionarioAcesso;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "operacao")
     private List<Interacao> interacoes;
 
     public Long getId() {
@@ -57,14 +60,6 @@ public class Operacao implements Serializable {
         this.cliente = cliente;
     }
 
-    public List<Funcionario> getFuncionariosAcesso() {
-        return funcionariosAcesso;
-    }
-
-    public void setFuncionariosAcesso(List<Funcionario> funcionariosAcesso) {
-        this.funcionariosAcesso = funcionariosAcesso;
-    }
-
     public BigDecimal getValorRequisitado() {
         return valorRequisitado;
     }
@@ -79,6 +74,14 @@ public class Operacao implements Serializable {
 
     public void setInteracoes(List<Interacao> interacoes) {
         this.interacoes = interacoes;
+    }
+
+    public List<Funcionario> getFuncionarioAcesso() {
+        return funcionarioAcesso;
+    }
+
+    public void setFuncionarioAcesso(List<Funcionario> funcionarioAcesso) {
+        this.funcionarioAcesso = funcionarioAcesso;
     }
 
     @Override

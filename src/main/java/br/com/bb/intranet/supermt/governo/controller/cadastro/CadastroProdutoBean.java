@@ -42,7 +42,7 @@ public class CadastroProdutoBean implements Serializable {
             this.cadastro.salvar(produto);
             this.prepararCadastro();
 
-            context.addMessage(null, new FacesMessage("Oportunidade salva com sucesso!"));
+            context.addMessage(null, new FacesMessage("Produto salvo com sucesso!"));
         } catch (NegocioException e) {
 
             FacesMessage mensagem = new FacesMessage(e.getMessage());

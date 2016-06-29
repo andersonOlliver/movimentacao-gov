@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:o="http://omnifaces.org/ui">
+
+    <f:metadata>
+        <f:viewAction action="#{consultaProdutoBean.consultar}" />
+    </f:metadata>
+
+    <ui:define name="titulo">Lista Funcionários</ui:define>
+
+    <ui:define name="corpo">
+
+        <h1>Lista Funcionários</h1>
+
+        <h:form id="frm">
+            <p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+            <!--TODOS OS CODIGOS AQUI!-->
+
+            <p:dataTable id="tbl" value="#{consultaProdutoBean.produtos}"
+                         reflow="true" var="item">
+
+
+                <p:column headerText="Nome" sortBy="#{item.nome}" filterBy="#{item.nome}">
+                    <h:outputText value="#{item.nome}" />
+                </p:column>
+
+                <p:column headerText="Instrução Normativa" sortBy="#{item.instrucaoNormativa}" filterBy="#{item.instrucaoNormativa}">
+                    <h:outputText value="#{item.instrucaoNormativa}" />
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

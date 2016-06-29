@@ -5,10 +5,13 @@
  */
 package br.com.bb.intranet.supermt.governo.controller.cadastro;
 
+import br.com.bb.intranet.supermt.governo.model.Agencia;
 import br.com.bb.intranet.supermt.governo.model.Funcionario;
+import br.com.bb.intranet.supermt.governo.repository.Agencias;
 import br.com.bb.intranet.supermt.governo.service.NegocioException;
 import br.com.bb.intranet.supermt.governo.service.cadastro.CadastroFuncionario;
 import java.io.Serializable;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -19,7 +22,7 @@ import javax.inject.Named;
  *
  * @author Olliver
  */
-@Named
+@Named(value = "cadastroUsuarioBean")
 @ViewScoped
 public class CadastroFuncionarioBean implements Serializable {
 
@@ -28,10 +31,15 @@ public class CadastroFuncionarioBean implements Serializable {
     @Inject
     private CadastroFuncionario cadastro;
     
-    private Funcionario funcionario;
+    @Inject
+    private Agencias agenciaRepository;
+    
+    private Funcionario usuario;
+    private List<Agencia> agencias;
     
     public void prepararCadastro(){
-        this.funcionario = new Funcionario();
+        this.usuario = new Funcionario();
+        this.agencias = this.agenciaRepository.todas();
     }
     
     public void salvar(){
@@ -39,7 +47,7 @@ public class CadastroFuncionarioBean implements Serializable {
 
         try {
             
-            this.cadastro.salvar(funcionario);
+            this.cadastro.salvar(usuario);
             
             context.addMessage(null, new FacesMessage("Conteudo salvo com sucesso!"));
         } catch (NegocioException e) {
@@ -50,12 +58,18 @@ public class CadastroFuncionarioBean implements Serializable {
         }
     }
 
-    public Funcionario getFuncionario() {
-        return funcionario;
+    public Funcionario getUsuario() {
+        return usuario;
     }
 
-    public void setFuncionario(Funcionario funcionario) {
-        this.funcionario = funcionario;
+    public void setUsuario(Funcionario usuario) {
+        this.usuario = usuario;
     }
+
+    public List<Agencia> getAgencias() {
+        return agencias;
+    }
+
+   
     
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:o="http://omnifaces.org/ui">
+
+    <f:metadata>
+        <f:viewAction action="#{consultaFuncionarioBean.consultar}" />
+    </f:metadata>
+
+    <ui:define name="titulo">Lista Funcionários</ui:define>
+
+    <ui:define name="corpo">
+
+        <h1>Lista Funcionários</h1>
+
+        <h:form id="frm">
+            <p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+            <!--TODOS OS CODIGOS AQUI!-->
+
+            <p:dataTable id="tbl" value="#{consultaFuncionarioBean.funcionarios}"
+                         reflow="true" var="item">
+
+
+                <p:column headerText="Prefixo" sortBy="#{item.agencia.prefixo}" filterBy="#{item.agencia.prefixo}">
+                    <h:outputText value="#{item.agencia.prefixo}" />
+                </p:column>
+
+                <p:column headerText="Chave" sortBy="#{item.chave}" filterBy="#{item.chave}">
+                    <h:outputText value="#{item.chave}" />
+                </p:column>
+                
+                <p:column headerText="Nome Completo" sortBy="#{item.nomeCompleto}" filterBy="#{item.nomeCompleto}">
+                    <h:outputText value="#{item.nomeCompleto}" />
+                </p:column>
+
+                <p:column headerText="Apelido" sortBy="#{item.apelido}" filterBy="#{item.apelido}">
+                    <h:outputText value="#{item.apelido}" />
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

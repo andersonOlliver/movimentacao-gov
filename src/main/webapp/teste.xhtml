@@ -16,18 +16,21 @@
 
         <!--<h1>Cadastro de Operação</h1>-->
 
-        <h:form id="frm">
-            <p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+        <h:form id="form">
+            <p:growl id="msgs" autoUpdate="true" />
 
             <!--TODOS OS CODIGOS AQUI!-->
 
-            <h:panelGrid columns="4" cellpadding="5" style="padding-left: 30%; font-size: 1.7vw">
-                <p:outputLabel value="Digite o MCI: " />
-                <p:autoComplete value="#{inicioBean.mci}" completeMethod="#{inicioBean.pesquisarMci}"/>
-                <p:commandButton value="Buscar" action="#{inicioBean.pesquisarCliente(inicioBean.mci)}" />
+           
 
-            </h:panelGrid>
-            
+            <p:dialog widgetVar="insereUsuario" header="Novo item"
+                      resizable="false" style="min-width: 300px" responsive="true">
+
+                <h:panelGroup id="itemPanel" layout="block" styleClass="ui-fluid">
+
+                    
+                </h:panelGroup>
+            </p:dialog>
         </h:form>
     </ui:define>
 </ui:composition>

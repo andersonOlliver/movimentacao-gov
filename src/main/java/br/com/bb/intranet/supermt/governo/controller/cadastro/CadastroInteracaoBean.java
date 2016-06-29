@@ -6,6 +6,7 @@
 package br.com.bb.intranet.supermt.governo.controller.cadastro;
 
 import br.com.bb.intranet.supermt.governo.model.Interacao;
+import br.com.bb.intranet.supermt.governo.model.TipoInteracao;
 import br.com.bb.intranet.supermt.governo.service.NegocioException;
 import br.com.bb.intranet.supermt.governo.service.cadastro.CadastroInteracao;
 import java.io.Serializable;
@@ -58,4 +59,7 @@ public class CadastroInteracaoBean implements Serializable {
         this.interacao = interacao;
     }
     
+    public TipoInteracao[] getTipoInteracao(){
+        return TipoInteracao.values();
+    }
 }

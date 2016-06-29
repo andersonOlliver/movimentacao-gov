@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:o="http://omnifaces.org/ui">
+
+    <f:metadata>
+        <f:viewAction action="#{consultaOperacaoBean.consultar}" />
+    </f:metadata>
+
+    <ui:define name="titulo">Lista Operações</ui:define>
+
+    <ui:define name="corpo">
+
+        <h1>Lista Operações</h1>
+
+        <h:form id="frm">
+            <p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+            <!--TODOS OS CODIGOS AQUI!-->
+
+            <p:dataTable id="tbl" value="#{consultaOperacaoBean.operacoes}"
+                         reflow="true" var="item">
+
+
+                <p:column headerText="Mci" sortBy="#{item.cliente.mci}" filterBy="#{item.cliente.mci}">
+                    <h:outputText value="#{item.cliente.mci}" />
+                </p:column>
+
+                <p:column headerText="Nome" sortBy="#{item.cliente.nome}" filterBy="#{item.cliente.nome}">
+                    <h:outputText value="#{item.cliente.nome}" />
+                </p:column>
+                
+                <p:column headerText="Nome" sortBy="#{item.cliente.carteira}" filterBy="#{item.cliente.carteira}">
+                    <h:outputText value="#{item.cliente.carteira}" />
+                </p:column>
+
+                <p:column headerText="Valor Requisitado" sortBy="#{item.valorRequisitado}" filterBy="#{item.valorRequisitado}">
+                    <h:outputText value="#{item.valorRequisitado}" />
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

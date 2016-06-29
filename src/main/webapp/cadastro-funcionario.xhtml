@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui" >
+
+    <f:metadata>
+        <!--<o:viewParam name="id" value="#{cadastroUsuarioBean.usuario}" />-->
+        <f:viewAction action="#{cadastroUsuarioBean.prepararCadastro}" />
+    </f:metadata>
+
+    <ui:define name="titulo">Cadastro de usuario</ui:define>
+
+    <ui:define name="corpo"> 
+       <h1>Cadastro de usuario</h1>
+
+        <h:form id="frm">
+            <p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+            <p:panelGrid columns="2" id="grid">
+                <p:outputLabel value="Agencia" for="tipo" />
+                <p:selectOneMenu id="tipo" required="true" filter="true" filterMatchMode="contains"
+                                   value="#{cadastroUsuarioBean.usuario.agencia}">
+                    <f:selectItems value="#{cadastroUsuarioBean.agencias}"
+                                   var="agencia" itemValue="#{agencia}"
+                                   itemLabel="#{agencia.prefixo} - #{agencia.nome}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Chave" for="chave" />
+                <p:inputText id="chave" maxlength="8" required="true"
+                             value="#{cadastroUsuarioBean.usuario.chave}" />
+
+                <p:outputLabel value="Nome" for="nome" />
+                <p:inputText id="nome"
+                             value="#{cadastroUsuarioBean.usuario.nomeCompleto}" />
+
+                <p:outputLabel value="Apelido" for="apelido" />
+                <p:inputText id="apelido"
+                             value="#{cadastroUsuarioBean.usuario.apelido}" />
+
+                <h:outputLabel />
+                <p:commandButton value="Salvar"
+                                 action="#{cadastroUsuarioBean.salvar}" icon="ui-icon-disk"
+                                 update="@form" />
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -43,6 +43,21 @@ public class Clientes implements Serializable {
         return (Cliente) criteria.uniqueResult();
     }
 
+//    public List<String> mciQueContenha(String mci) {
+//        Criteria criteria = criarCriteriaBusca();
+//        criteria.add(Restrictions.ilike("mci", "%" + mci + "%"));
+//        
+//        return criteria.list();
+//    }
+    
+    public List<String> mciQueContenha(String mci){
+        TypedQuery<String> query = manager.createQuery(
+                "select distinct mci from Cliente "
+                        + " where mci like :mci", String.class);
+        query.setParameter("mci", "%" + mci+ "%");
+        return query.getResultList();
+    }
+
     public List<Cliente> todos() {
         TypedQuery<Cliente> query = manager.createQuery("from Cliente", Cliente.class);
 
@@ -67,6 +82,13 @@ public class Clientes implements Serializable {
     private Criteria criarCriteria() {
         Session session = manager.unwrap(Session.class);
         Criteria criteria = session.createCriteria(Cliente.class);
+
+        return criteria;
+    }
+    
+    private Criteria criarCriteriaBusca() {
+        Session session = manager.unwrap(Session.class);
+        Criteria criteria = session.createCriteria(String.class);
 
         return criteria;
     }

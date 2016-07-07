@@ -20,8 +20,8 @@
             <scope>compile</scope>
         </dependency>
         
-        <!-- for JSF 2.x -->
-<!--        <dependency>
+        <!--         PrettyFaces (urls amigáveis) 
+        <dependency>
             <groupId>org.ocpsoft.rewrite</groupId>
             <artifactId>rewrite-servlet</artifactId>
             <version>2.0.12.Final</version>
@@ -32,6 +32,12 @@
             <version>2.0.12.Final</version>
         </dependency>-->
         
+<!--        <dependency>
+            <groupId>org.tuckey</groupId>
+            <artifactId>urlrewritefilter</artifactId>
+            <version>4.0.3</version>
+        </dependency>
+        -->
         <!-- Weld (implementação do CDI) -->
         <dependency>
             <groupId>org.jboss.weld.servlet</groupId>
@@ -109,7 +115,7 @@
             </plugin>
         </plugins>
     </build>
-<!--    <repositories>
+    <!--    <repositories>
         <repository>
             <url>http://repository.primefaces.org/</url>
             <id>PrimeFaces-maven-lib</id>

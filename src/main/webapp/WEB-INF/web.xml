@@ -46,13 +46,36 @@
         <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
+<!--    <filter>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UrlRewriteFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>-->
 
-    <security-constraint>
+<!--    <security-constraint>
         <display-name>Restrict raw XHTML Documents</display-name>
         <web-resource-collection>
             <web-resource-name>XHTML</web-resource-name>
             <url-pattern>*.xhtml</url-pattern>
         </web-resource-collection>
         <auth-constraint/>
-    </security-constraint>
+    </security-constraint>-->
+    <!-- Incluir esse fragmento de código no arquivo web.xml -->
+<!--    <filter>
+        <filter-name>Pretty Filter</filter-name>
+        <filter-class>com.ocpsoft.pretty.PrettyFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>Pretty Filter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping> -->
 </web-app>

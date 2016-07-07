@@ -46,7 +46,7 @@ public class InicioBean implements Serializable {
     public void pesquisarCliente(String mci) {
         this.cliente = this.clienteRepository.porMci(mci);
         if (cliente == null) {
-            this.addErrorMessage("Cliente não existe em nossos registros!");
+            this.addErrorMessage("Cliente não existe em nossos registros!", "Contate o Administrador do Sistema!");
         } else {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/governo/movimentacao/lista-interacao.super?cliente=" + cliente.getMci());
@@ -56,9 +56,9 @@ public class InicioBean implements Serializable {
         }
     }
 
-    void addErrorMessage(String textoMensagem) {
+    void addErrorMessage(String textoMensagem, String detalhe) {
         FacesContext context = FacesContext.getCurrentInstance();
-        FacesMessage mensagem = new FacesMessage(textoMensagem);
+        FacesMessage mensagem = new FacesMessage(textoMensagem, detalhe);
         mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
         context.addMessage(null, mensagem);
     }

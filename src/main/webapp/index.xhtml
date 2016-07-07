@@ -7,7 +7,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <f:metadata>
-        <f:viewAction action="#{inicioBean.prepararCadastro}" />
+        <f:viewAction action="#{inicioBean.prepararPesquisa}" />
     </f:metadata>
 
     <ui:define name="titulo">Cadastro de Operação</ui:define>
@@ -15,19 +15,20 @@
     <ui:define name="corpo">
 
         <!--<h1>Cadastro de Operação</h1>-->
-
-        <h:form id="frm">
+        <p:tooltip />
+        <h:form id="frm" style="width: 95%; margin-left: 5%">
             <p:messages showDetail="false" showSummary="true" autoUpdate="true" />
 
             <!--TODOS OS CODIGOS AQUI!-->
 
-            <h:panelGrid columns="4" cellpadding="5" style="padding-left: 30%; font-size: 1.7vw">
-                <p:outputLabel value="Digite o MCI: " />
-                <p:autoComplete value="#{inicioBean.mci}" completeMethod="#{inicioBean.pesquisarMci}"/>
-                <p:commandButton value="Buscar" action="#{inicioBean.pesquisarCliente(inicioBean.mci)}" />
-
-            </h:panelGrid>
             
+            <h:panelGrid columns="4" cellpadding="5" class="buscador">
+                <p:outputLabel value="Digite o MCI: " />
+                <p:autoComplete id="ac_busca" value="#{inicioBean.mci}" completeMethod="#{inicioBean.pesquisarMci}" dropdown="true" />
+                <p:commandButton value="Buscar" action="#{inicioBean.pesquisarCliente(inicioBean.mci)}" />
+                
+            </h:panelGrid>
+
         </h:form>
     </ui:define>
 </ui:composition>

@@ -5,7 +5,6 @@
  */
 package br.com.bb.intranet.supermt.governo.converter;
 
-import br.com.bb.intranet.supermt.governo.model.Agencia;
 import br.com.bb.intranet.supermt.governo.model.Cliente;
 import br.com.bb.intranet.supermt.governo.repository.Clientes;
 import javax.faces.component.UIComponent;
@@ -18,7 +17,7 @@ import javax.inject.Inject;
  *
  * @author Olliver
  */
-@FacesConverter("clienteConverter")
+@FacesConverter(forClass = Cliente.class)
 public class ClienteConverter implements Converter {
 
     @Inject

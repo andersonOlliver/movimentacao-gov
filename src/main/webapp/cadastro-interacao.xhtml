@@ -4,32 +4,77 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:o="http://omnifaces.org/ui">
 
-        <f:metadata>
-            <f:viewAction action="#{cadastroInteracaoBean.prepararCadastro}" />
-        </f:metadata>
 
-        <ui:define name="titulo">Cadastro de Interação</ui:define>
 
-        <ui:define name="corpo">
+    <f:metadata>
+        <o:viewParam name="id" value="#{cadastroInteracaoBean.cliente}" />
+        <f:viewAction action="#{cadastroInteracaoBean.prepararCadastroInteracao}" />
+    </f:metadata>
 
+    <ui:define name="titulo">Cadastro de Interação</ui:define>
+
+    <ui:define name="corpo">
+        <ui:include src="cadastro-oportunidade.xhtml" />
+        <h:form id="frm" style="max-width: 1100px; width: 98%; margin-left: 1%">
+            <!--            <p:breadCrumb>
+                            <p:menuitem value="Home" url="#" />
+                            <p:menuitem value="Cadastro de Interação" url="#" />
+                            <p:menuitem value="Segundo lklink" url="#" />
+                        </p:breadCrumb>-->
+            <p:panel class="sombra">
+                <p:panelGrid>
+                    <p:row>
+                        <p:column colspan="2" >
+                            <h:outputText value="#{cadastroInteracaoBean.cliente.nome}" style="font-size: 1.2em"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Carteira:" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{cadastroInteracaoBean.cliente.carteira}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="MCI:" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{cadastroInteracaoBean.cliente.mci}" />
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <h:outputText value="Agencia:" />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{cadastroInteracaoBean.cliente.agencia.prefixo} - #{cadastroInteracaoBean.cliente.agencia.nome}" />
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+
+            </p:panel>
             <h1>Cadastro de Interação</h1>
 
-            <h:form id="frm">
-            <p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+            <!--<p:messages showDetail="false" showSummary="true" autoUpdate="true" />-->
+            <p:growl showDetail="false" showSummary="true" autoUpdate="true" />
 
             <!--TODOS OS CODIGOS AQUI!-->
 
 
 
 
-            <h:panelGroup id="itemPanel" layout="block" styleClass="ui-fluid">
-                <p:panelGrid columns="2" id="grid" styleClass="panelgrid-noborder" columnClasses="ui-grid-col-3, ui-grid-col-9">
-
+            <h:panelGroup id="itemPanel" layout="block" styleClass="ui-fluid" style="box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.4); margin-bottom: 10px;">
+                <p:panelGrid  columns="3" id="grid" styleClass="panelgrid-noborder" columnClasses="ui-grid-col-3, ui-grid-col-6,ui-grid-col-3">
+                    
                     <h:panelGroup class="noborder">
-                        <p:outputLabel value="Tipo" for="interacao_titulo" style="margin-bottom: 10px"/>
-                        <p:selectOneMenu id="tipo" required="true" 
+                        <p:outputLabel value="Tipo" for="interacao_tipo" style="margin-bottom: 10px"/>
+                        <p:selectOneMenu id="interacao_tipo" required="true" 
                                          value="#{cadastroInteracaoBean.interacao.tipoInteracao}">
                             <f:selectItem itemLabel="Selecione o tipo" noSelectionOption="true" />
                             <f:selectItems value="#{cadastroInteracaoBean.tipoInteracao}"
@@ -40,51 +85,69 @@
 
                     <h:panelGroup class="noborder">
                         <p:outputLabel value="Título" for="interacao_titulo" />
-                        <p:inputText id="interacao_titulo" size="150" maxlength="250"
+                        <p:inputText id="interacao_titulo" size="200" maxlength="250" required="true"
                                      value="#{cadastroInteracaoBean.interacao.titulo}">
                         </p:inputText>
                     </h:panelGroup>
 
+                    <h:panelGroup class="noborder">
+                        <p:outputLabel value="Data Oportunidade" for="interacao_data" />
+                        <p:calendar id="interacao_data" value="#{cadastroInteracaoBean.interacao.data}" />
+                    </h:panelGroup>
                 </p:panelGrid>
 
 
                 <p:panelGrid columns="3" id="grid2" styleClass="panelgrid-noborder" columnClasses="ui-grid-col-7, ui-grid-col-4, ui-grid-col-1">
+
                     <h:panelGroup class="noborder">
-                        <p:outputLabel value="Empresa" for="interacao_cliente" />
-                        <p:inputText id="interacao_cliente" size="150" maxlength="150" disabled="true"
-                                     value="#{cadastroInteracaoBean.interacao.operacao.cliente.nome}">
-                        </p:inputText>
+                        <p:outputLabel value="Empresa" for="interacao_cliente" style="margin-bottom: 10px"/>
+                        <p:inputText id="interacao_cliente" value="#{cadastroInteracaoBean.cliente.nome}" required="true" disabled="true" size="200" />
                     </h:panelGroup>
+
                     <h:panelGroup class="noborder">
-                        <p:outputLabel value="Oportunidade" for="interacao_oportunidade" style="margin-bottom: 10px"/>
-                        <p:selectOneMenu id="interacao_oportunidade" required="true" 
-                                         value="#{cadastroInteracaoBean.interacao.tipoInteracao}">
-                            <f:selectItem itemLabel="Selecione o tipo" noSelectionOption="true" />
-                            <f:selectItems value="#{cadastroInteracaoBean.tipoInteracao}"
-                                           var="tipoInteracao" itemValue="#{tipoInteracao}"
-                                           itemLabel="#{tipoInteracao.valor}" />
+                        <p:outputLabel value="Oportunida Vinculada" for="interacao_oportunidade" style="margin-bottom: 10px"/>
+                        <p:selectOneMenu id="interacao_oportunidade" value="#{cadastroInteracaoBean.interacao.oportunidade}" 
+                                         converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemLabel=" -- Selecione -- " noSelectionOption="true"/>
+                            <f:selectItems value="#{cadastroInteracaoBean.oportunidades}" var="oportunidade"
+                                           itemLabel="#{oportunidade.titulo}" itemValue="#{oportunidade}" />
                         </p:selectOneMenu>
                     </h:panelGroup>
+
                     <h:panelGroup class="noborder">
                         <br/>
-                        <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDQ0IDQ0IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0NCA0NCIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CiAgPHBhdGggZD0iTTIyLDBDOS44LDAsMCw5LjgsMCwyMnM5LjgsMjIsMjIsMjJzMjItOS44LDIyLTIyUzM0LjIsMCwyMiwweiBNMzQsMjNjMCwwLjYtMC40LDEtMSwxaC04LjVjLTAuMywwLTAuNSwwLjItMC41LDAuNVYzMyAgYzAsMC42LTAuNCwxLTEsMWgtMmMtMC42LDAtMS0wLjQtMS0xdi04LjVjMC0wLjMtMC4yLTAuNS0wLjUtMC41SDExYy0wLjYsMC0xLTAuNC0xLTF2LTJjMC0wLjYsMC40LTEsMS0xaDguNSAgYzAuMywwLDAuNS0wLjIsMC41LTAuNVYxMWMwLTAuNiwwLjQtMSwxLTFoMmMwLjYsMCwxLDAuNCwxLDF2OC41YzAsMC4zLDAuMiwwLjUsMC41LDAuNUgzM2MwLjYsMCwxLDAuNCwxLDFWMjN6IiBmaWxsPSIjMDA2REYwIi8+Cjwvc3ZnPgo=" />
+                        <p:commandLink  process="@this" update=":CriaOportunidade"
+                                        action="#{cadastroInteracaoBean.prepararCadastroOportunidade}" 
+                                        oncomplete="PF('criaOportunidade').show()" >
+                            <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDQ0IDQ0IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCA0NCA0NCIgd2lkdGg9IjMycHgiIGhlaWdodD0iMzJweCI+CiAgPHBhdGggZD0iTTIyLDBDOS44LDAsMCw5LjgsMCwyMnM5LjgsMjIsMjIsMjJzMjItOS44LDIyLTIyUzM0LjIsMCwyMiwweiBNMzQsMjNjMCwwLjYtMC40LDEtMSwxaC04LjVjLTAuMywwLTAuNSwwLjItMC41LDAuNVYzMyAgYzAsMC42LTAuNCwxLTEsMWgtMmMtMC42LDAtMS0wLjQtMS0xdi04LjVjMC0wLjMtMC4yLTAuNS0wLjUtMC41SDExYy0wLjYsMC0xLTAuNC0xLTF2LTJjMC0wLjYsMC40LTEsMS0xaDguNSAgYzAuMywwLDAuNS0wLjIsMC41LTAuNVYxMWMwLTAuNiwwLjQtMSwxLTFoMmMwLjYsMCwxLDAuNCwxLDF2OC41YzAsMC4zLDAuMiwwLjUsMC41LDAuNUgzM2MwLjYsMCwxLDAuNCwxLDFWMjN6IiBmaWxsPSIjMDA2REYwIi8+Cjwvc3ZnPgo=" />
+                        </p:commandLink>
                         <!--<img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDUxMCA1MTAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMCA1MTA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8ZyBpZD0iYWRkLWNpcmNsZSI+CgkJPHBhdGggZD0iTTI1NSwwQzExNC43NSwwLDAsMTE0Ljc1LDAsMjU1czExNC43NSwyNTUsMjU1LDI1NXMyNTUtMTE0Ljc1LDI1NS0yNTVTMzk1LjI1LDAsMjU1LDB6IE0zODIuNSwyODAuNWgtMTAydjEwMmgtNTF2LTEwMiAgICBoLTEwMnYtNTFoMTAydi0xMDJoNTF2MTAyaDEwMlYyODAuNXoiIGZpbGw9IiMwMDZERjAiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" />-->
-<!--                        <img style="margin-top: 12%"
-                            src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDUxMCA1MTAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMCA1MTA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8ZyBpZD0iYWRkLWNpcmNsZSI+CgkJPHBhdGggZD0iTTI1NSwwQzExNC43NSwwLDAsMTE0Ljc1LDAsMjU1czExNC43NSwyNTUsMjU1LDI1NXMyNTUtMTE0Ljc1LDI1NS0yNTVTMzk1LjI1LDAsMjU1LDB6IE0zODIuNSwyODAuNWgtMTAydjEwMmgtNTF2LTEwMiAgICBoLTEwMnYtNTFoMTAydi0xMDJoNTF2MTAyaDEwMlYyODAuNXoiIGZpbGw9IiMwMDZERjAiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" />-->
+                        <!--                        <img style="margin-top: 12%"
+                                                    src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDUxMCA1MTAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMCA1MTA7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8ZyBpZD0iYWRkLWNpcmNsZSI+CgkJPHBhdGggZD0iTTI1NSwwQzExNC43NSwwLDAsMTE0Ljc1LDAsMjU1czExNC43NSwyNTUsMjU1LDI1NXMyNTUtMTE0Ljc1LDI1NS0yNTVTMzk1LjI1LDAsMjU1LDB6IE0zODIuNSwyODAuNWgtMTAydjEwMmgtNTF2LTEwMiAgICBoLTEwMnYtNTFoMTAydi0xMDJoNTF2MTAyaDEwMlYyODAuNXoiIGZpbGw9IiMwMDZERjAiLz4KCTwvZz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" />-->
                     </h:panelGroup>
                 </p:panelGrid>
-                <p:panelGrid columns="2" id="grid3" styleClass="panelgrid-noborder" >
-                    <p:outputLabel value="IN" for="produto_in" />
-                    <p:inputText id="produto_in"
-                                 value="#{cadastroInteracaoBean.interacao.operacao.cliente.nome}">
-                    </p:inputText>
-
-                    <h:outputLabel />
-                    <p:commandButton value="Salvar" action="#{consultaInteracaoBean.salvar}"
-                                     icon="ui-icon-disk" update="@form" />
-
+                <p:panelGrid columns="1" id="grid3" styleClass="panelgrid-noborder" >
+                    <h:panelGroup>
+                        <p:outputLabel value="Descrição" for="interacao_descricao" style="margin-bottom: 10px"/>
+                        <p:inputTextarea id="interacao_descricao" value="#{cadastroInteracaoBean.interacao.descricao}" 
+                                         cols="200" maxlength="3000" counter="display" counterTemplate="{0} caracteres restantes"
+                                     autoResize="false" rows="8"/>
+                    <h:outputText id="display" />
+                    </h:panelGroup>
                 </p:panelGrid>
+
             </h:panelGroup>
+
+            <p:panelGrid columns="2" id="grid4" styleClass="panelgrid-noborder" style="float: right">
+
+
+                <p:button value="Cancelar" icon="ui-icon-closethick" href="/" />
+                <p:commandButton value="Salvar" action="#{cadastroInteracaoBean.salvarInteracao}"
+                                 icon="ui-icon-disk" update="@form" />
+
+            </p:panelGrid>
+
+           
 
         </h:form>
     </ui:define>

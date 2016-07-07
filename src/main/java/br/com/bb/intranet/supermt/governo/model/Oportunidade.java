@@ -4,6 +4,7 @@ import br.com.bb.intranet.supermt.governo.validation.DecimalPositivo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -55,15 +57,18 @@ public class Oportunidade implements Serializable {
     @ManyToOne
     @JoinColumn(name = "produto_id")
     private Produto produto;
+    
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
     @NotNull
     @Size(max = 3000)
     @Column(name = "valor_noticia", length = 3000)
     private String descricao;
 
-    @ManyToOne
-    @JoinColumn(name = "interacao_id")
-    private Interacao interacaoPai;
+    @OneToMany(mappedBy = "oportunidade")
+    private List<Interacao> interacoes;
 
     public Long getId() {
         return id;
@@ -129,13 +134,22 @@ public class Oportunidade implements Serializable {
         this.descricao = descricao;
     }
 
-    public Interacao getInteracaoPai() {
-        return interacaoPai;
+    public List<Interacao> getInteracoes() {
+        return interacoes;
     }
 
-    public void setInteracaoPai(Interacao interacaoPai) {
-        this.interacaoPai = interacaoPai;
+    public void setInteracoes(List<Interacao> interacoes) {
+        this.interacoes = interacoes;
     }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
 
     @Override
     public int hashCode() {

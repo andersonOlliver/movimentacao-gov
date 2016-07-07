@@ -48,7 +48,7 @@ public class CadastroClienteBean implements Serializable {
         try {
             
             this.cadastro.salvar(cliente);
-            
+            this.prepararCadastro();
             context.addMessage(null, new FacesMessage("Cliente salvo com sucesso!"));
         } catch (NegocioException e) {
 

@@ -21,5 +21,7 @@ public enum ProbabilidadeSucesso {
         this.valor = valor;
     }
     
-    
+    public String getValor() {
+        return valor;
+    }
 }

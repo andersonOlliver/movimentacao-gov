@@ -5,10 +5,17 @@
  */
 package br.com.bb.intranet.supermt.governo.controller.cadastro;
 
+import br.com.bb.intranet.supermt.governo.model.Cliente;
+import br.com.bb.intranet.supermt.governo.model.Estagio;
 import br.com.bb.intranet.supermt.governo.model.Oportunidade;
+import br.com.bb.intranet.supermt.governo.model.ProbabilidadeSucesso;
+import br.com.bb.intranet.supermt.governo.repository.Clientes;
+import br.com.bb.intranet.supermt.governo.repository.Estagios;
 import br.com.bb.intranet.supermt.governo.service.NegocioException;
 import br.com.bb.intranet.supermt.governo.service.cadastro.CadastroOportunidade;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -27,13 +34,33 @@ public class CadastroOportunidadeBean implements Serializable {
 
     @Inject
     private CadastroOportunidade cadastro;
+    
+    @Inject
+    private Estagios estagioRepositorio;
+    
+    @Inject
+    private Clientes clienteRepositorio;
 
+    private String nomeCliente;
+    private String nomeProduto;
     private Oportunidade oportunidade;
-
+    private Cliente cliente;
+    private List<Cliente> clientes;
+    private List<Estagio> estagios;
+    private boolean temParametro = false;
+    
     public void prepararCadastro() {
+        temParametro = cliente == null;
         this.oportunidade = new Oportunidade();
+        this.estagios = estagioRepositorio.todos();
+        
+        if(temParametro){
+            this.clientes = this.clienteRepositorio.todos();
+            this.cliente = new Cliente();
+        }
     }
-
+    
+    
     public void salvar() {
         FacesContext context = FacesContext.getCurrentInstance();
 
@@ -50,6 +77,10 @@ public class CadastroOportunidadeBean implements Serializable {
             context.addMessage(null, mensagem);
         }
     }
+    
+    public ProbabilidadeSucesso[] getProbabilidadeDeSucesso(){
+        return ProbabilidadeSucesso.values();
+    }
 
     public Oportunidade getOportunidade() {
         return oportunidade;
@@ -58,4 +89,42 @@ public class CadastroOportunidadeBean implements Serializable {
     public void setOportunidade(Oportunidade oportunidade) {
         this.oportunidade = oportunidade;
     }
+
+    public List<Estagio> getEstagios() {
+        return estagios;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
+
+    public String getNomeProduto() {
+        return nomeProduto;
+    }
+
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public boolean isTemParametro() {
+        return temParametro;
+    }
+    
+    
 }

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/Layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:o="http://omnifaces.org/ui">
+
+    <f:metadata>
+        <f:viewParam name="cliente" value="#{consultaInteracaoBean.mci}" />
+        <f:viewAction action="#{consultaInteracaoBean.consultar}" />
+    </f:metadata>
+
+    <ui:define name="titulo">Consulta Interações</ui:define>
+
+    <ui:define name="corpo">
+        <p:panel class="sombra" style="padding-left: 3%">
+            <h:outputText value="#{consultaInteracaoBean.cliente.nome}" style="font-size: 1.2em"/>
+            <p:panelGrid columns="2" columnClasses="label,value">
+
+
+                <h:outputText value="Carteira:" />
+                <h:outputText value="#{consultaInteracaoBean.cliente.carteira}" />
+
+                <h:outputText value="MCI:" />
+                <h:outputText value="#{consultaInteracaoBean.cliente.mci}" />
+
+
+                <h:outputText value="Agencia:" />
+                <h:outputText value="#{consultaInteracaoBean.cliente.agencia.prefixo} - #{consultaInteracaoBean.cliente.agencia.nome}" />
+
+            </p:panelGrid>
+
+        </p:panel>
+        <h1>Consulta Interações</h1>
+
+        <h:form id="frm">
+            <p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+            <!--TODOS OS CODIGOS AQUI!-->
+
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:button value="Novo" icon="ui-icon-document" outcome="cadastro-interacao">
+                        <f:param name="id" value="#{consultaInteracaoBean.cliente.id}" />
+                    </p:button>
+                </f:facet>
+            </p:toolbar>
+            <p:dataTable id="tbl" value="#{consultaInteracaoBean.interacoes}" emptyMessage="Não há dados cadastro para esse Cliente"
+                         reflow="true" var="item">
+
+
+<!--                <p:column headerText="Cliente" sortBy="#{item.empresa.nome}" >
+                    <h:outputText value="#{item.empresa.nome}" />
+                </p:column>
+
+                <p:column headerText="Carteira" sortBy="#{item.empresa.carteira}" >
+                    <h:outputText value="#{item.empresa.carteira}" />
+                </p:column>
+
+                <p:column headerText="Agencia" sortBy="#{item.empresa.agencia.nome}" >
+                    <h:outputText value="#{item.empresa.agencia.nome}" />
+                </p:column>-->
+
+                <p:column style="width:16px">
+                    <p:rowToggler />
+                </p:column>
+
+                <p:column headerText="Tipo Interação" sortBy="#{item.tipoInteracao}" >
+                    <h:outputText value="#{item.tipoInteracao}" />
+                </p:column>
+
+                <p:column headerText="Titulo" sortBy="#{item.titulo}" >
+                    <h:outputText value="#{item.titulo}" />
+                </p:column>
+
+                <p:column headerText="Data Interação" sortBy="#{item.data}" >
+                    <h:outputText value="#{item.data}" />
+                </p:column>
+
+                <p:column headerText="Valor Oportunidade" sortBy="#{item.oportunidade.valorOportunidade}" >
+                    <h:outputText value="#{item.oportunidade.valorOportunidade}" />
+                </p:column>
+
+                <p:column headerText="Produto" sortBy="#{item.oportunidade.produto.nome}" >
+                    <h:outputText value="#{item.oportunidade.produto.nome}" />
+                </p:column>
+
+                <p:column headerText="Estagio" sortBy="#{item.oportunidade.estagio.valor}" >
+                    <h:outputText value="#{item.oportunidade.estagio.valor}" />
+                </p:column>
+
+                <p:column headerText="Oportunidade" sortBy="#{item.oportunidade.titulo}" >
+                    <h:outputText value="#{item.oportunidade.titulo}" />
+                </p:column>
+
+                <p:rowExpansion>
+                    <p:panelGrid  columns="2" columnClasses="label,value" style="min-width:300px; max-width: 900px;">
+                        <f:facet name="header">
+                            <p:graphicImage library="supermt" name="search.png"/> 
+                            <h:outputText value="#{consultaInteracaoBean.cliente.nome}" style="font-size: 1.2em"/><br/>
+                            <h:outputText value="(#{consultaInteracaoBean.cliente.mci})" />
+                        </f:facet>
+
+                        <h:outputText value="Título Oportunidade" />
+                        <h:outputText value="#{item.oportunidade.titulo}" />
+
+                        <h:outputText value="Previsão de Fechamento" />
+                        <h:outputText value="#{item.oportunidade.previsaoFechamento}" />
+
+                        <h:outputText value="Valor Oportunidade" />
+                        <h:outputText value="#{item.oportunidade.valorOportunidade}" />
+
+                    </p:panelGrid>
+                </p:rowExpansion>
+            </p:dataTable>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

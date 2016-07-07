@@ -26,7 +26,7 @@
             <p:dataTable id="tbl" value="#{consultaEstagioBean.estagios}"
                          reflow="true" var="item">
 
-                <p:column headerText="Prefixo" sortBy="#{item.valor}" filterBy="#{item.valor}">
+                <p:column headerText="Estagio" sortBy="#{item.valor}" filterBy="#{item.valor}" >
                     <h:outputText value="#{item.valor}" />
                 </p:column>
 

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <p:dialog id="CriaOportunidade" widgetVar="criaOportunidade" 
+              modal="true" resizable="false"  appendTo="@(body)"
+              header="Cadastro Oportunidade" closeOnEscape="true"
+              responsive="true" style="min-width: 900px">
+        <h:form id="form">
+            <p:separator />
+            <h:panelGroup id="itemPanel" layout="block" styleClass="ui-fluid">
+                <p:panelGrid columns="2" id="grid" class="toda-tela">
+
+                    <h:panelGroup>
+                        <p:outputLabel value="Cliente" for="oportunidade_cliente" />
+                        <p:inputText id="oportunidade_cliente" maxlength="100" disabled="true" alt="Cliente"
+                                     value="#{cadastroInteracaoBean.cliente.nome}">
+                        </p:inputText>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <p:outputLabel value="Título" for="oportunidade_titulo" />
+                        <p:inputText id="oportunidade_titulo" required="true" maxlength="100"
+                                     value="#{cadastroInteracaoBean.oportunidade.titulo}">
+                        </p:inputText>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <p:outputLabel value="Previsão de fechamento" for="oportunidade_previsao" />
+                        <p:calendar id="oportunidade_previsao" required="true"
+                                    value="#{cadastroInteracaoBean.oportunidade.previsaoFechamento}" />
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <p:outputLabel value="Valor Oportunidade" for="oportunidade_valor" />
+                        <p:inputNumber id="oportunidade_valor" value="#{cadastroInteracaoBean.oportunidade.valorOportunidade}" 
+                                       decimalSeparator="," symbol="R$" thousandSeparator="." maxValue="99999999.99"/>
+                    </h:panelGroup>
+
+                    <h:panelGroup>
+                        <p:outputLabel value="Estagio" for="oportunidade_estagio" />
+                        <p:selectOneMenu id="oportunidade_estagio" required="true"
+                                         value="#{cadastroInteracaoBean.oportunidade.estagio}" 
+                                         converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemLabel="Selecione"
+                                          noSelectionOption="true" />
+                            <f:selectItems value="#{cadastroInteracaoBean.estagios}" var="estagio"
+                                           itemValue="#{estagio}" itemLabel="#{estagio.valor}" />
+                        </p:selectOneMenu>
+                    </h:panelGroup>
+
+                    <h:panelGroup >
+                        <p:outputLabel value="Probabilidade de sucesso" for="oportunidade_probabilidade_sucesso" />
+                        <p:selectOneMenu id="oportunidade_probabilidade_sucesso" required="true"
+                                         value="#{cadastroInteracaoBean.oportunidade.probabilidadeSucesso}">
+                            <f:selectItem itemLabel="Selecione"
+                                          noSelectionOption="true" />
+                            <f:selectItems value="#{cadastroInteracaoBean.probabilidadeSucesso}" var="item"
+                                           itemValue="#{item}" itemLabel="#{item.valor}" />
+                        </p:selectOneMenu>
+                    </h:panelGroup>
+                </p:panelGrid>
+
+                <!--<h:panelGroup style="width: 90%">-->
+                <p:panelGrid class="toda-tela" columns="1">
+                    <p:outputLabel value="Descrição da Oportunidade" for="oportunidade_produto" />
+                    <p:selectOneMenu id="oportunidade_produto" required="true" filter="true" 
+                                     value="#{cadastroInteracaoBean.oportunidade.produto}"
+                                     converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                        <f:selectItems value="#{cadastroInteracaoBean.produtos}" var="item"
+                                       itemValue="#{item}" itemLabel="#{item.nome}" />
+                    </p:selectOneMenu>
+
+
+                    <p:outputLabel value="Descrição da Oportunidade" for="oportunidade_descricao" />
+                    <p:inputTextarea id="oportunidade_descricao" value="#{cadastroInteracaoBean.oportunidade.descricao}"  
+                                     maxlength="3000" counter="display" counterTemplate="{0} caracteres restantes"
+                                     autoResize="false" rows="8"/>
+                    <h:outputText id="display" />
+                </p:panelGrid>
+                <!--</h:panelGroup>-->
+            </h:panelGroup>
+            <p:separator />
+            <p:commandButton id="salvar_oportunidade" value="Salvar" icon="ui-icon-disk"
+                             action="#{cadastroInteracaoBean.salvarOportunidade}" update=":form, :frm:interacao_oportunidade" 
+                             class="botao-salvar"
+                             oncomplete="if (!args.validationFailed) PF('criaOportunidade').hide()"/>
+
+
+        </h:form>
+    </p:dialog>
+</ui:composition>

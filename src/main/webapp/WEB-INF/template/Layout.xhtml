@@ -32,6 +32,7 @@
 
         <h:form>
             <p:menubar style="margin-top: -20px; margin-bottom: 20px">
+                <p:menuitem value="Início" action="index?faces-redirect=true" icon="ui-icon-home" style="padding-left: 10px"/>
                 <p:submenu label="Cadastros">
                     <p:menuitem value="Agência"
                                 action="cadastro-agencia?faces-redirect=true" />	
@@ -39,30 +40,29 @@
                                 action="cadastro-cliente?faces-redirect=true" />
                     <p:menuitem value="Estágio"
                                 action="cadastro-estagio?faces-redirect=true" />
-                    <p:menuitem value="Operação"
-                                action="cadastro-operacao?faces-redirect=true" />
-                    <p:menuitem value="Produto"
-                                action="cadastro-produto?faces-redirect=true" />
-<!--                                                <p:menuitem value="Pagina"
-                                                        action="CadastroPagina?faces-redirect=true" />
-                                                <p:menuitem value="Sugestao"
-                                                        action="CadastroSugestao?faces-redirect=true" />--> 
                     <p:menuitem value="Funcionario"
                                 action="cadastro-funcionario?faces-redirect=true" />
+                    <p:menuitem value="Interação"
+                                action="cadastro-interacao?faces-redirect=true" />
+                    <p:menuitem value="Oportunidade"
+                                action="cadastro-oportunidade?faces-redirect=true" />
+                    <p:menuitem value="Produto"
+                                action="cadastro-produto?faces-redirect=true" />
                 </p:submenu>
                 <p:submenu label="Consultas">
                     <p:menuitem value="Agencia"
                                 action="/lista-agencia?faces-redirect=true" />
+                    <p:menuitem value="Cliente" 
+                                action="/lista-cliente?faces-redirect=true" />
                     <p:menuitem value="Estágio"
                                 action="lista-estagio?faces-redirect=true" />
-                    <p:menuitem value="Cliente" action="/lista-cliente?faces-redirect=true" />
-                    <p:menuitem value="Operação"
-                    action="/lista-operacoes?faces-redirect=true" /><!--
-                    <p:menuitem value="Pagina" action="/ListaPagina?faces-redirect=true" />
--->                    <p:menuitem value="Produto"
-                    action="lista-produto?faces-redirect=true" />
-                   <p:menuitem value="Funcionario"
-                    action="/lista-funcionario?faces-redirect=true" />
+                    <p:menuitem value="Funcionario"
+                                action="/lista-funcionario?faces-redirect=true" />
+                    <p:menuitem value="Interação"
+                                action="lista-interacao?faces-redirect=true" />
+                    <p:menuitem value="Produto"
+                                action="lista-produto?faces-redirect=true" />
+
                 </p:submenu>
                 <!-- <p:submenu label="Sistema">
                         <p:menuitem value="Sair" action="#{loginBean.logout}" />

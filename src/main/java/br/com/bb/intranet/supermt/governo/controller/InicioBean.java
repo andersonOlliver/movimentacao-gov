@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -33,7 +34,7 @@ public class InicioBean implements Serializable {
     private String mci;
     private Cliente cliente;
 
-    public void prepararCadastro() {
+    public void prepararPesquisa() {
         this.cliente = new Cliente();
 
     }
@@ -44,11 +45,22 @@ public class InicioBean implements Serializable {
 
     public void pesquisarCliente(String mci) {
         this.cliente = this.clienteRepository.porMci(mci);
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/Governo/Movimentacao/cadastro-operacao.super?mci="+cliente.getMci());
-        } catch (IOException ex) {
-            System.out.println("Erro ao redirecionar!");
+        if (cliente == null) {
+            this.addErrorMessage("Cliente não existe em nossos registros!");
+        } else {
+            try {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/governo/movimentacao/lista-interacao.super?cliente=" + cliente.getMci());
+            } catch (IOException ex) {
+                System.out.println("Erro ao redirecionar!");
+            }
         }
+    }
+
+    void addErrorMessage(String textoMensagem) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        FacesMessage mensagem = new FacesMessage(textoMensagem);
+        mensagem.setSeverity(FacesMessage.SEVERITY_ERROR);
+        context.addMessage(null, mensagem);
     }
 
     public String getMci() {

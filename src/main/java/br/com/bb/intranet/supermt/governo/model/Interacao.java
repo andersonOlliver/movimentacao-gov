@@ -2,7 +2,6 @@ package br.com.bb.intranet.supermt.governo.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -58,13 +56,10 @@ public class Interacao implements Serializable {
     @Column(name = "valor_noticia", length = 3000)
     private String descricao;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Oportunidade> oportunidades;
-    
     @ManyToOne
-    @JoinColumn(name="operacao_id")
-    private Operacao operacao;
-
+    @JoinColumn(name = "oportunidade_id")
+    private Oportunidade oportunidade;
+    
     public Long getId() {
         return id;
     }
@@ -121,21 +116,15 @@ public class Interacao implements Serializable {
         this.descricao = descricao;
     }
 
-    public List<Oportunidade> getOportunidades() {
-        return oportunidades;
+    public Oportunidade getOportunidade() {
+        return oportunidade;
     }
 
-    public void setOportunidades(List<Oportunidade> oportunidades) {
-        this.oportunidades = oportunidades;
+    public void setOportunidade(Oportunidade oportunidade) {
+        this.oportunidade = oportunidade;
     }
 
-    public Operacao getOperacao() {
-        return operacao;
-    }
-
-    public void setOperacao(Operacao operacao) {
-        this.operacao = operacao;
-    }
+    
 
     @Override
     public int hashCode() {

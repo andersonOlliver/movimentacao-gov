@@ -14,7 +14,7 @@
 
     <ui:define name="corpo">
 
-        <h1>Consulta de Clientes</h1>
+        <h1>Cadastro de Clientes</h1>
 
         <h:form id="frm">
             <p:messages showDetail="false" showSummary="true" autoUpdate="true" />
@@ -29,13 +29,13 @@
                 </p:inputText>
 
                 <p:outputLabel value="MCI" for="cliente_mci" />
-                <p:inputText id="cliente_mci" required="true" maxlength="11"
+                <p:inputText id="cliente_mci" required="true" maxlength="9"
                              value="#{cadastroClienteBean.cliente.mci}">
                     <p:keyFilter mask="num" />
                 </p:inputText>
 
                 <p:outputLabel value="Carteira" for="cliente_carteira" />
-                <p:inputText id="cliente_carteira"
+                <p:inputText id="cliente_carteira" maxlength="4"
                              value="#{cadastroClienteBean.cliente.carteira}">
                     <p:keyFilter mask="num" />
                 </p:inputText>

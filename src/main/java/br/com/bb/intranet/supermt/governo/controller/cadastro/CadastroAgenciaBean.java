@@ -41,6 +41,7 @@ public class CadastroAgenciaBean implements Serializable {
             
             this.cadastro.salvar(agencia);
 
+            this.prepararCadastro();
             context.addMessage(null, new FacesMessage("Agência salva com sucesso!"));
         } catch (NegocioException e) {
 
